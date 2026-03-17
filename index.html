@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sito Progetto | Home</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- Carichiamo il file JS nell'Head -->
+    <script src="components.js" defer></script>
+</head>
+<body>
+
+    <!-- Segnaposto per Header e Nav -->
+    <div id="header-placeholder"></div>
+
+<main class="due-colonne">
+    <div class="container-principale">
+      <div class="sinistra">
+        <h2>Risorse e Collaborazioni</h2>
+        <div class="calendario">
+            <div class="calendario-titolo" onclick="toggleEvents()">
+                PROSSIMI EVENTI (Clicca qui)
+            </div>
+            <div class="calendario-corpo" id="lista-eventi">
+                <p>06/03 - Evento 1</p>
+                <p>15/04 - Evento 2</p>
+                <p>20/05 - Evento 3</p>
+            </div>
+        </div>
+        <p>Esplora i materiali ufficiali del progetto:</p>
+        <ul class="lista-link">
+             <li>
+                <a href="https://share.google/xZEEX67fWkfBm6HQm" target="_blank">
+                    Sfida multidisciplinare studenti - Stem Racing Italy
+                </a>
+             </li>
+             <li>
+                 <a href="https://share.google/TUR9yPPHtedgA4JXF" target="_blank">
+                     STEM Racing Global (Sito Ufficiale)
+                 </a>
+             </li>
+         </ul>
+     </div>
+     
+     <div class="destra">
+    <h2>In Primo Piano</h2>
+    
+    <div class="carousel-container">
+        <!-- Le immagini -->
+        <div class="slide active">
+            <img src="img/foto01.jpg" alt="Foto 1">
+        </div>
+        <div class="slide">
+            <img src="img/foto02.jpg" alt="Foto 2">
+        </div>
+        <div class="slide">
+            <img src="img/foto03.jpg" alt="Foto 3">
+        </div>
+
+        <!-- Bottoni Avanti e Indietro -->
+        <button class="prev" onclick="cambiaSlide(-1)">&#10094;</button>
+        <button class="next" onclick="cambiaSlide(1)">&#10095;</button>
+
+        <!-- I puntini (Dots) -->
+        <div class="dots-container">
+            <span class="dot active" onclick="vaiAllaSlide(0)"></span>
+            <span class="dot" onclick="vaiAllaSlide(1)"></span>
+            <span class="dot" onclick="vaiAllaSlide(2)"></span>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</main>
+
+    <!-- Segnaposto per il Footer -->
+    <div id="footer-placeholder"></div>
+<script>
+function toggleEvents() {
+    const container = document.getElementById("lista-eventi");
+
+    // Se lo stile è "none" oppure è ancora vuoto (prima volta che clicchi)
+    if (container.style.display === "none" || container.style.display === "") {
+        container.style.display = "block";
+    } else {
+        container.style.display = "none";
+    }
+}
+let currentSlide = 0;
+const slides = document.getElementsByClassName("slide");
+const dots = document.getElementsByClassName("dot");
+
+function mostraSlide(n) {
+    // 1. Reset: nascondi tutte le slide e spegni i puntini
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+        dots[i].classList.remove("active");
+    }
+
+    // 2. Gestione dei limiti (se arrivo alla fine ricomincio)
+    currentSlide = n;
+    if (n >= slides.length) { currentSlide = 0; }
+    if (n < 0) { currentSlide = slides.length - 1; }
+
+    // 3. Mostra la slide corretta
+    slides[currentSlide].classList.add("active");
+    dots[currentSlide].classList.add("active");
+}
+
+function cambiaSlide(direzione) {
+    mostraSlide(currentSlide + direzione);
+}
+
+function vaiAllaSlide(n) {
+    mostraSlide(n);
+}
+
+// --- AUTOPLAY: Cambia ogni 2 secondi ---
+setInterval(() => {
+    cambiaSlide(1);
+}, 2000);
+</script>
+</body>
+</html>
